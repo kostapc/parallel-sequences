@@ -9,7 +9,6 @@ import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
@@ -19,7 +18,7 @@ import java.util.logging.Logger;
  * @author KostaPC
  * 2017 Infon ZED
  **/
-public class ShortQueueTest {
+public class MultiQueueTest {
 
     @Test
     public void testShortQueueSync() throws InterruptedException {
@@ -27,7 +26,7 @@ public class ShortQueueTest {
         long delay = -100;
 
         Executor executor = Executors.newFixedThreadPool(count);
-        Logger LOG = Logger.getLogger(ShortQueueTest.class.getName());
+        Logger LOG = Logger.getLogger(MultiQueueTest.class.getName());
         MultiQueue<Runnable> multiQueue = new MultiQueue<>(executor, LOG);
 
         List<String> sequence = new LinkedList<>();

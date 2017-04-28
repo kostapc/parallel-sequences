@@ -48,7 +48,7 @@ public class MultiQueue<T extends Runnable> {
         private final String key;
         private final long id;
 
-        public ShortQueue(String key) {
+        ShortQueue(String key) {
             this.key = key;
             this.id = queueId.incrementAndGet();
         }
@@ -63,19 +63,14 @@ public class MultiQueue<T extends Runnable> {
         public void run() {
             for(T data = queue.poll(); data != null;) {
                 try {
-                    LOG.log(Level.FINEST,"executing queue #"+id+" task for key \""+key+"\" (queue size = "+queue.size()+")");
                     data.run();
-                    LOG.log(Level.FINEST,"executing queue #"+id+" task for key \""+key+"\" DONE");
                     data = queue.poll(10, TimeUnit.MILLISECONDS);
                     if(data==null) {
                         map.remove(key);
-                        LOG.log(Level.FINEST,"short queue "+id+" timed out (exhausted) for key \""+key+"\"... continue with queue size check");
                         return;
                     }
-                } catch (InterruptedException e) {
-                    LOG.log(Level.FINEST,"thread interrupted!",e);
                 } catch (Exception e) {
-                    LOG.log(Level.FINEST,"error while executing ShortQueue task",e);
+                    LOG.log(Level.WARNING,"error while executing ShortQueue task",e);
                 }
             }
             LOG.log(Level.FINEST,"short queue "+id+" exhausted for key \""+key+"\"... releasing thread \""+Thread.currentThread().getName()+"\"");
