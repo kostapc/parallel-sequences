@@ -1,4 +1,4 @@
-package net.c0f3.commons.blockqueue;
+package net.c0f3.commons.multiqueue;
 
 
 import java.util.concurrent.*;
