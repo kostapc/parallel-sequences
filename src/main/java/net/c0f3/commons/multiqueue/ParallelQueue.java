@@ -13,14 +13,14 @@ import java.util.logging.Logger;
  * 2017 Infon ZED
  **/
 
-public class MultiQueue<T extends Runnable> {
+public class ParallelQueue<T extends Runnable> {
 
     private final Executor executor;
     private final Logger LOG;
 
     private final ConcurrentHashMap<String, ShortQueue> map = new ConcurrentHashMap<>();
 
-    public MultiQueue(Executor executor, Logger log) {
+    public ParallelQueue(Executor executor, Logger log) {
         this.executor = executor;
         this.LOG = log;
     }

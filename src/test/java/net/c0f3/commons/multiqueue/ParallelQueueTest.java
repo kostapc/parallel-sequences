@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * @author KostaPC
  * 2017 Infon ZED
  **/
-public class MultiQueueTest {
+public class ParallelQueueTest {
 
     @Test
     public void testShortQueueSync() throws InterruptedException {
@@ -26,8 +26,8 @@ public class MultiQueueTest {
         long delay = -100;
 
         Executor executor = Executors.newFixedThreadPool(count);
-        Logger LOG = Logger.getLogger(MultiQueueTest.class.getName());
-        MultiQueue<Runnable> multiQueue = new MultiQueue<>(executor, LOG);
+        Logger LOG = Logger.getLogger(ParallelQueueTest.class.getName());
+        ParallelQueue<Runnable> parallelQueue = new ParallelQueue<>(executor, LOG);
 
         List<String> sequence = new LinkedList<>();
         List<String> threads = new LinkedList<>();
@@ -77,7 +77,7 @@ public class MultiQueueTest {
                         return;
                     }
                 }
-                multiQueue.put("same", task);
+                parallelQueue.put("same", task);
                 tasksCount.incrementAndGet();
                 queuedDoor.countDown();
             });
